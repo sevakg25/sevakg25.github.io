@@ -216,3 +216,10 @@ p.quals {
     background-size: contain;
 
 }
+
+a.pointer.text-dark:hover {
+    color: #3399cc !important;
+}
+a.pointer.text-light:hover {
+    color: #343a40 !important;
+}
