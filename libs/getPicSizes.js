@@ -2,8 +2,8 @@ const sizeOf = require('image-size');
 const fs = require('fs');
 
 const PATH = '../images/';
-const FOLDERS = ['football/', 'liverpool/', 'travels/'];
-const NUM_PICS_PER_FOLDER = [8, 7, 2];
+const FOLDERS = ['liverpool/', 'travels/'];
+const NUM_PICS_PER_FOLDER = [13,26];
 var dimensions = {};
 for (let i = 0; i < FOLDERS.length; i++) {
 	let folderDimensions = [];
