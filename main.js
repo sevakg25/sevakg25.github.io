@@ -89,7 +89,11 @@ const createGalleryInHTML = () => {
         Array.from(document.getElementsByClassName('image-link')).forEach(function(el) {
             let index = parseInt(el.getElementsByTagName("IMG")[0].src.match(/\/\d+\.jpeg+$/g)[0].match(/\d+/g)[0]);
             let galleryName = el.getElementsByTagName("IMG")[0].className;
-            el.addEventListener('click', function() { openGallery(index - 1, galleryName) });
+            $(el)
+                .unbind('click')
+                .click(function() {
+                    openGallery(index - 1, galleryName);
+                });
         });
     });
 }
