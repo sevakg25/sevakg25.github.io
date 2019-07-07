@@ -11,20 +11,25 @@ let photoMetaData = {
 
 const fetchMetadata = (gallery) => {
     let xobj = new XMLHttpRequest();
+
     xobj.overrideMimeType('application/json');
-    xobj.open('GET', `images/${gallery}/metadata.json`, true);
     xobj.onreadystatechange = function() {
         if (xobj.readyState == 4 && xobj.status == "200" && xobj.responseText) {
             photoMetaData[gallery] = JSON.parse(xobj.responseText);
+            window.dispatchEvent(new Event('metadata_fetched'));
         }
     };
+    xobj.open('GET', `images/${gallery}/metadata.json`, true);
     xobj.send(null);
+
+
 }
 
 const fetchDimensionsAndCreateImages = () => {
     let xobj = new XMLHttpRequest();
+
     xobj.overrideMimeType("application/json");
-    xobj.open('GET', 'imageDimensions.json', true);
+
     xobj.onreadystatechange = function() {
         if (xobj.readyState == 4 && xobj.status == "200") {
             dimensions = JSON.parse(xobj.responseText);
@@ -45,7 +50,9 @@ const fetchDimensionsAndCreateImages = () => {
             createGalleryInHTML();
         }
     };
+    xobj.open('GET', 'imageDimensions.json', true);
     xobj.send(null);
+
 }
 
 const createGalleryInHTML = () => {
@@ -112,5 +119,7 @@ contactSubmitButton.addEventListener("click", (e) => {
 
 (function() {
     FOLDERS.forEach(folder => fetchMetadata(folder));
-    fetchDimensionsAndCreateImages();
 })();
+
+window.addEventListener('metadata_fetched', fetchDimensionsAndCreateImages);
+
